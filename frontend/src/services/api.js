@@ -10,9 +10,33 @@ const apiClient = axios.create({
   },
 })
 
+let pendingRequests = []
+
+const cancelPendingRequests = () => {
+  pendingRequests.forEach(cancel => cancel())
+  pendingRequests = []
+}
+
+apiClient.interceptors.request.use(
+  (config) => {
+    cancelPendingRequests()
+    const controller = new AbortController()
+    config.signal = controller.signal
+    pendingRequests.push(() => controller.abort())
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    pendingRequests = pendingRequests.filter(() => false)
+    return response
+  },
   (error) => {
+    if (axios.isCancel(error)) {
+      return Promise.reject(new Error('请求已取消'))
+    }
     console.error('API Error:', error)
     return Promise.reject(error)
   }
@@ -93,4 +117,5 @@ export const exportBatchJson = async (resumeIds) => {
   return response.data
 }
 
+export { apiClient }
 export default apiClient

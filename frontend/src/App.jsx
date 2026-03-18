@@ -1,9 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from 'antd'
+import { lazy, Suspense } from 'react'
 import Sidebar from './components/Sidebar'
-import UploadPage from './pages/UploadPage'
-import ResumeListPage from './pages/ResumeListPage'
-import ResumeDetailPage from './pages/ResumeDetailPage'
+import LoadingSpinner from './components/LoadingSpinner'
+
+const UploadPage = lazy(() => import('./pages/UploadPage'))
+const ResumeListPage = lazy(() => import('./pages/ResumeListPage'))
+const ResumeDetailPage = lazy(() => import('./pages/ResumeDetailPage'))
 
 const { Content, Header } = Layout
 
@@ -46,12 +49,14 @@ function App() {
           boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)',
           minHeight: 'calc(100vh - 112px)'
         }}>
+          <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path="/" element={<Navigate to="/upload" replace />} />
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/resumes" element={<ResumeListPage />} />
             <Route path="/resumes/:id" element={<ResumeDetailPage />} />
           </Routes>
+          </Suspense>
         </Content>
       </Layout>
     </Layout>

@@ -270,6 +270,61 @@ body {
   }
 }
 
+@media (max-width: 576px) {
+  .ant-layout-header {
+    padding: 0 16px !important;
+  }
+
+  .ant-layout-content {
+    margin: 12px !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  .upload-container {
+    padding: 12px 0;
+  }
+
+  .file-format-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .file-format-card {
+    padding: 12px 14px;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .result-card {
+    padding: 32px 20px;
+  }
+
+  .result-card .ant-result-title {
+    font-size: 18px !important;
+  }
+
+  .ant-table-wrapper {
+    font-size: 13px;
+  }
+
+  .ant-btn {
+    padding: 4px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
