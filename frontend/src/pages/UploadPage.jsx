@@ -17,32 +17,32 @@ function UploadPage() {
     multiple: true,
     accept: '.pdf,.docx,.doc,.txt,.html',
     beforeUpload: async (file) => {
-      const isAllowed = ['.pdf', '.docx', '.doc', '.txt', '.html'].some(ext => 
+      const isAllowed = ['.pdf', '.docx', '.doc', '.txt', '.html'].some(ext =>
         file.name.toLowerCase().endsWith(ext)
       )
       if (!isAllowed) {
-        message.error('不支持的文件类型')
+        message.error('不支持的文件类型，请上传 PDF、Word、TXT 或 HTML 格式')
         return Upload.LIST_IGNORE
       }
 
       const isLt10M = file.size / 1024 / 1024 < 10
       if (!isLt10M) {
-        message.error('文件大小不能超过10MB')
+        message.error('文件大小不能超过 10MB')
         return Upload.LIST_IGNORE
       }
 
       setLoading(true)
       try {
         const uploadResult = await uploadFile(file)
-        message.success('文件上传成功，开始解析...')
+        message.success('文件上传成功，正在解析...')
 
         const parsed = await parseResume(uploadResult.file_id)
-        message.success('简历解析完成')
+        message.success('简历解析完成！')
 
         setCurrentResumeId(parsed.resume_id)
         setUploadSuccess(true)
       } catch (error) {
-        message.error(error.response?.data?.detail || '处理失败，请重试')
+        message.error(error.response?.data?.detail || '处理失败，请稍后重试')
       } finally {
         setLoading(false)
       }
@@ -65,9 +65,17 @@ function UploadPage() {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '100px 0' }}>
+      <div style={{
+        textAlign: 'center',
+        padding: '100px 0',
+        animation: 'fadeIn 0.3s ease-out'
+      }}>
         <Spin size="large" />
-        <div style={{ marginTop: 24, color: '#999' }}>
+        <div style={{
+          marginTop: 24,
+          color: '#6B7280',
+          fontSize: '15px'
+        }}>
           正在上传并解析简历，请稍候...
         </div>
       </div>
@@ -76,17 +84,37 @@ function UploadPage() {
 
   if (uploadSuccess) {
     return (
-      <div className="upload-container">
+      <div className="upload-container fade-in">
         <Result
+          className="result-card"
           status="success"
-          icon={<CheckCircleOutlined style={{ color: '#52c41a' }} />}
+          icon={<CheckCircleOutlined style={{ color: '#10B981', fontSize: '64px' }} />}
           title="简历上传并解析成功！"
-          subTitle="您的简历已完成数据清洗和结构化处理"
+          subTitle="您的简历已完成数据清洗和结构化处理，可以查看详细结果或继续上传更多简历"
           extra={[
-            <Button type="primary" key="view" onClick={handleViewResume}>
+            <Button
+              type="primary"
+              key="view"
+              onClick={handleViewResume}
+              style={{
+                height: '44px',
+                paddingLeft: '32px',
+                paddingRight: '32px',
+                fontSize: '15px'
+              }}
+            >
               查看解析结果
             </Button>,
-            <Button key="more" onClick={handleUploadMore}>
+            <Button
+              key="more"
+              onClick={handleUploadMore}
+              style={{
+                height: '44px',
+                paddingLeft: '24px',
+                paddingRight: '24px',
+                fontSize: '15px'
+              }}
+            >
               继续上传
             </Button>,
           ]}
@@ -96,71 +124,82 @@ function UploadPage() {
   }
 
   return (
-    <div className="upload-container">
+    <div className="upload-container fade-in">
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <h2 style={{
+          fontSize: '24px',
+          fontWeight: 600,
+          color: '#1F2937',
+          marginBottom: '8px'
+        }}>
+          上传简历
+        </h2>
+        <p style={{
+          fontSize: '15px',
+          color: '#6B7280'
+        }}>
+          支持批量上传，系统将自动进行解析和清洗
+        </p>
+      </div>
+
       <Dragger {...uploadProps}>
         <p className="ant-upload-drag-icon">
-          <InboxOutlined style={{ fontSize: 48, color: '#1890ff' }} />
+          <InboxOutlined style={{ fontSize: '56px' }} />
         </p>
-        <p className="ant-upload-text">点击或拖拽简历文件到此区域上传</p>
+        <p className="ant-upload-text" style={{ fontSize: '17px', marginTop: '16px' }}>
+          点击或拖拽简历文件到此区域上传
+        </p>
         <p className="ant-upload-hint">
-          支持 PDF、Word、TXT、HTML 格式，单个文件不超过10MB
+          支持 PDF、Word、TXT、HTML 格式，单个文件不超过 10MB
         </p>
       </Dragger>
 
-      <div style={{ marginTop: 32 }}>
-        <h3 style={{ marginBottom: 16 }}>支持的文件格式</h3>
-        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-          <div style={{ 
-            padding: '12px 24px', 
-            background: '#f5f5f5', 
-            borderRadius: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            <FileTextOutlined /> PDF
-          </div>
-          <div style={{ 
-            padding: '12px 24px', 
-            background: '#f5f5f5', 
-            borderRadius: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            <FileTextOutlined /> Word (.docx)
-          </div>
-          <div style={{ 
-            padding: '12px 24px', 
-            background: '#f5f5f5', 
-            borderRadius: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            <FileTextOutlined /> Word (.doc)
-          </div>
-          <div style={{ 
-            padding: '12px 24px', 
-            background: '#f5f5f5', 
-            borderRadius: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            <FileTextOutlined /> TXT
-          </div>
-          <div style={{ 
-            padding: '12px 24px', 
-            background: '#f5f5f5', 
-            borderRadius: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            <FileTextOutlined /> HTML
-          </div>
+      <div className="file-format-cards">
+        <div className="file-format-card">
+          <FileTextOutlined style={{ fontSize: '24px', color: '#EF4444' }} />
+          <span>PDF</span>
         </div>
+        <div className="file-format-card">
+          <FileTextOutlined style={{ fontSize: '24px', color: '#3B82F6' }} />
+          <span>Word (.docx)</span>
+        </div>
+        <div className="file-format-card">
+          <FileTextOutlined style={{ fontSize: '24px', color: '#3B82F6' }} />
+          <span>Word (.doc)</span>
+        </div>
+        <div className="file-format-card">
+          <FileTextOutlined style={{ fontSize: '24px', color: '#6B7280' }} />
+          <span>TXT</span>
+        </div>
+        <div className="file-format-card">
+          <FileTextOutlined style={{ fontSize: '24px', color: '#F59E0B' }} />
+          <span>HTML</span>
+        </div>
+      </div>
+
+      <div style={{
+        marginTop: '40px',
+        padding: '24px',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(99, 102, 241, 0.08) 100%)',
+        borderRadius: '12px',
+        textAlign: 'center'
+      }}>
+        <h4 style={{
+          fontSize: '15px',
+          fontWeight: 600,
+          color: '#1F2937',
+          marginBottom: '12px'
+        }}>
+          智能简历解析系统
+        </h4>
+        <p style={{
+          fontSize: '14px',
+          color: '#6B7280',
+          lineHeight: 1.6
+        }}>
+          自动提取姓名、联系方式、教育背景、工作经历、技能证书等信息，<br />
+          并进行标准化清洗和脱敏处理，确保数据安全。
+        </p>
       </div>
     </div>
   )

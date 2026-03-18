@@ -102,11 +102,11 @@ function ResumeListPage() {
 
   const getConfidenceTag = (confidence) => {
     if (confidence >= 0.8) {
-      return <Tag color="green">高 ({confidence})</Tag>
+      return <Tag color="success" style={{ borderRadius: '6px', fontWeight: 500 }}>高 ({confidence})</Tag>
     } else if (confidence >= 0.5) {
-      return <Tag color="orange">中 ({confidence})</Tag>
+      return <Tag color="warning" style={{ borderRadius: '6px', fontWeight: 500 }}>中 ({confidence})</Tag>
     } else {
-      return <Tag color="red">低 ({confidence})</Tag>
+      return <Tag color="error" style={{ borderRadius: '6px', fontWeight: 500 }}>低 ({confidence})</Tag>
     }
   }
 
