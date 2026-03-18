@@ -4,10 +4,12 @@ import json
 import io
 import csv
 from typing import Optional
+import logging
 
 from app.api.resume import RESUME_STORAGE
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get("/export/json/{resume_id}")
