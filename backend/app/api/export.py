@@ -193,9 +193,54 @@ async def export_batch_json(resume_ids: str = Query(..., description="逗号分�
     json_str = json.dumps(results, ensure_ascii=False, indent=2, default=str)
     
     buffer = io.BytesIO(json_str.encode('utf-8'))
-    
+
     return StreamingResponse(
         buffer,
         media_type="application/json",
         headers={"Content-Disposition": "attachment; filename=resumes_batch.json"}
+    )
+
+
+@router.get("/export/batch/excel")
+async def export_batch_excel(resume_ids: str = Query(..., description="逗号分隔的简历ID")):
+    """批量导出Excel"""
+    try:
+        import pandas as pd
+    except ImportError:
+        raise HTTPException(status_code=500, detail="Excel导出功能需要安装pandas库")
+
+    ids = [id.strip() for id in resume_ids.split(',') if id.strip()]
+
+    results = []
+    for resume_id in ids:
+        if resume_id in RESUME_STORAGE:
+            results.append(RESUME_STORAGE[resume_id])
+
+    if not results:
+        raise HTTPException(status_code=404, detail="没有找到指定的简历")
+
+    all_rows = []
+    for resume in results:
+        data = resume.get('data', {})
+        basic_info = data.get('basic_info', {})
+        all_rows.append({
+            'resume_id': resume.get('resume_id'),
+            'filename': resume.get('filename'),
+            '姓名': basic_info.get('name', ''),
+            '性别': basic_info.get('gender', ''),
+            '手机': basic_info.get('phone', ''),
+            '邮箱': basic_info.get('email', ''),
+            '地址': basic_info.get('location', ''),
+        })
+
+    df = pd.DataFrame(all_rows)
+
+    buffer = io.BytesIO()
+    df.to_excel(buffer, index=False, engine='openpyxl')
+    buffer.seek(0)
+
+    return StreamingResponse(
+        buffer,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": "attachment; filename=resumes_batch.xlsx"}
     )

@@ -117,5 +117,13 @@ export const exportBatchJson = async (resumeIds) => {
   return response.data
 }
 
+export const exportBatchExcel = async (resumeIds) => {
+  const response = await apiClient.get('/export/batch/excel', {
+    params: { resume_ids: resumeIds.join(',') },
+    responseType: 'blob',
+  })
+  return response.data
+}
+
 export { apiClient }
 export default apiClient
