@@ -27,6 +27,21 @@ function LoginPage() {
     }
   }
 
+  const handleDefaultLogin = async () => {
+    setLoading(true)
+    try {
+      const result = await login('user', '888888')
+      localStorage.setItem('token', result.access_token)
+      localStorage.setItem('user', JSON.stringify(result.user))
+      message.success('登录成功')
+      navigate('/')
+    } catch (error) {
+      message.error('默认账号登录失败')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleRegister = async (values) => {
     setLoading(true)
     try {
@@ -99,6 +114,18 @@ function LoginPage() {
               <Form.Item>
                 <Button type="primary" htmlType="submit" loading={loading} block size="large">
                   登录
+                </Button>
+              </Form.Item>
+              <Form.Item>
+                <Button 
+                  type="default" 
+                  loading={loading} 
+                  block 
+                  size="large"
+                  onClick={handleDefaultLogin}
+                  style={{ marginTop: -8 }}
+                >
+                  快速登录 (user / 888888)
                 </Button>
               </Form.Item>
             </Form>
