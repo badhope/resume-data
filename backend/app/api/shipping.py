@@ -22,18 +22,18 @@ class ShippingAddress(BaseModel):
     province: str
     city: str
     district: str
-
-class CreateShippingOrder(BaseModel):
-    resume_id: int
-    address: ShippingAddress
-    carrier: str = "sf"
-    notes: Optional[str] = None
     
     @validator('recipient_phone')
     def validate_phone(cls, v):
         if not re.match(r'^1[3-9]\d{9}$', v):
             raise ValueError('手机号格式不正确')
         return v
+
+class CreateShippingOrder(BaseModel):
+    resume_id: int
+    address: ShippingAddress
+    carrier: str = "sf"
+    notes: Optional[str] = None
 
 class ShippingStatusUpdate(BaseModel):
     status: str

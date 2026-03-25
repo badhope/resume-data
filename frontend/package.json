@@ -1,13 +1,43 @@
 {
-  "name": "resume-cleaner-frontend",
+  "name": "resume-cleaner",
   "version": "1.0.0",
-  "private": true,
+  "description": "Intelligent Resume Data Cleaning Platform - 智能简历数据清洗平台",
+  "author": "Resume Cleaner Team",
+  "license": "MIT",
+  "private": false,
   "type": "module",
+  "homepage": "https://github.com/badhope/resume-data#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badhope/resume-data.git"
+  },
+  "bugs": {
+    "url": "https://github.com/badhope/resume-data/issues"
+  },
+  "keywords": [
+    "resume",
+    "cleaner",
+    "hr",
+    "recruitment",
+    "data-cleaning",
+    "resume-parser",
+    "fastapi",
+    "react",
+    "antd"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -23,6 +53,23 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.1.0",
+    "vitest": "^1.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

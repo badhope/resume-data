@@ -45,17 +45,22 @@ def init_db():
     try:
         existing_user = db.query(User).filter(User.nickname == "user").first()
         if not existing_user:
-            pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+            pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
+            password = "888888"
+            hashed = pwd_context.hash(password)
             default_user = User(
                 nickname="user",
-                password_hash=pwd_context.hash("888888"),
+                password_hash=hashed,
                 is_active=True,
                 is_verified=True
             )
             db.add(default_user)
             db.commit()
             print("Default user 'user' created with password '888888'")
+        else:
+            print("Default user 'user' already exists")
     except Exception as e:
         print(f"Error creating default user: {e}")
+        db.rollback()
     finally:
         db.close()
