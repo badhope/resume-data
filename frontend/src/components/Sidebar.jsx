@@ -1,6 +1,6 @@
 import { Layout, Menu } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { UploadOutlined, FileTextOutlined, BarChartOutlined, SettingOutlined } from '@ant-design/icons'
+import { UploadOutlined, FileTextOutlined, BarChartOutlined, SettingOutlined, FileSearchOutlined } from '@ant-design/icons'
 
 const { Sider } = Layout
 
@@ -20,6 +20,11 @@ function Sidebar() {
       label: '简历管理',
     },
     {
+      key: '/reports',
+      icon: <FileSearchOutlined />,
+      label: '清洗报告',
+    },
+    {
       key: '/statistics',
       icon: <BarChartOutlined />,
       label: '数据统计',
@@ -35,6 +40,9 @@ function Sidebar() {
     const path = location.pathname
     if (path.startsWith('/resumes/')) {
       return '/resumes'
+    }
+    if (path.startsWith('/reports/')) {
+      return '/reports'
     }
     return path
   }

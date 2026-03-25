@@ -9,6 +9,8 @@ const ResumeListPage = lazy(() => import('./pages/ResumeListPage'))
 const ResumeDetailPage = lazy(() => import('./pages/ResumeDetailPage'))
 const StatisticsPage = lazy(() => import('./pages/StatisticsPage'))
 const SettingsPage = lazy(() => import('./pages/SettingsPage'))
+const CleaningReportPage = lazy(() => import('./pages/CleaningReportPage'))
+const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 
 const { Content, Header } = Layout
 
@@ -57,6 +59,8 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/resumes" element={<ResumeListPage />} />
             <Route path="/resumes/:id" element={<ResumeDetailPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/reports/:id" element={<CleaningReportPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>

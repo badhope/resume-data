@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Card, Row, Col, Descriptions, Tag, Button, Space, Spin, message, Modal, Form, Input, Select, Empty } from 'antd'
-import { ArrowLeftOutlined, ExportOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, ExportOutlined, EditOutlined, SaveOutlined, FileSearchOutlined } from '@ant-design/icons'
 import { getResume, updateResume, exportJson, exportExcel, exportCsv } from '../services/api'
 import dayjs from 'dayjs'
 
@@ -129,6 +129,9 @@ function ResumeDetailPage() {
             <>
               <Button icon={<EditOutlined />} onClick={handleEdit}>
                 编辑
+              </Button>
+              <Button icon={<FileSearchOutlined />} onClick={() => navigate(`/reports/${id}`)}>
+                清洗报告
               </Button>
               <Button icon={<ExportOutlined />} onClick={() => setExportModalVisible(true)}>
                 导出
