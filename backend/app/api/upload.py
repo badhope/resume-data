@@ -83,29 +83,55 @@ async def upload_files(files: list[UploadFile] = File(...)):
     errors = []
     
     for file in files:
+        if not file or not file.filename:
+            errors.append({
+                "filename": "unknown",
+                "error": "未提供有效的文件"
+            })
+            continue
+            
         if not allowed_file(file.filename):
             errors.append({
                 "filename": file.filename,
-                "error": f"不支持的文件类型"
+                "error": f"不支持的文件类型。支持的类型: {', '.join(ALLOWED_EXTENSIONS)}"
             })
             continue
         
         try:
+            content = await file.read()
+            
+            if len(content) == 0:
+                errors.append({
+                    "filename": file.filename,
+                    "error": "文件内容为空"
+                })
+                continue
+            
+            if len(content) > MAX_FILE_SIZE:
+                errors.append({
+                    "filename": file.filename,
+                    "error": f"文件大小超过限制({MAX_FILE_SIZE // (1024*1024)}MB)"
+                })
+                continue
+            
             file_id = str(uuid.uuid4())
             file_ext = Path(file.filename).suffix
             save_filename = f"{file_id}{file_ext}"
             save_path = Path(settings.UPLOAD_DIR) / save_filename
             
             async with aiofiles.open(save_path, 'wb') as f:
-                content = await file.read()
                 await f.write(content)
+            
+            logger.info(f"Batch upload file: {file_id}, size: {len(content)} bytes")
             
             results.append({
                 "file_id": file_id,
                 "filename": file.filename,
-                "size": len(content)
+                "size": len(content),
+                "upload_time": datetime.now().isoformat()
             })
         except Exception as e:
+            logger.error(f"Batch upload failed for {file.filename}: {str(e)}")
             errors.append({
                 "filename": file.filename,
                 "error": str(e)

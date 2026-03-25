@@ -349,6 +349,207 @@ body {
   }
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+.logo-icon {
+  font-size: 24px;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-footer .version {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.statistics-page .ant-card {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.statistics-page .stat-card {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.statistics-page .stat-card .ant-statistic-title {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.statistics-page .stat-card .ant-statistic-content {
+  color: var(--color-text-primary);
+}
+
+.statistics-page .analysis-card {
+  min-height: 300px;
+}
+
+.statistics-page .overview-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.statistics-page .overview-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.statistics-page .overview-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+}
+
+.statistics-page .overview-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.statistics-page .overview-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.statistics-page .trend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.statistics-page .trend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.statistics-page .trend-item:hover {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-page .settings-card {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.settings-page .option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.settings-page .option-item:hover {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-page .option-item span {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.settings-page .option-group {
+  margin-bottom: 16px;
+}
+
+.settings-page .option-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.settings-page .form-item {
+  margin-bottom: 16px;
+}
+
+.settings-page .form-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.ant-menu-item-selected {
+  background: var(--color-primary) !important;
+}
+
+.ant-menu-item:hover {
+  background: rgba(99, 102, 241, 0.2) !important;
+}
+
+.ant-progress-text {
+  font-weight: 600 !important;
+}
+
+.ant-table-thead > tr > th {
+  background: var(--color-bg) !important;
+  font-weight: 600 !important;
+  color: var(--color-text-primary) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: rgba(99, 102, 241, 0.04) !important;
+}
+
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+}
+
+.ant-tabs-ink-bar {
+  background: var(--color-primary) !important;
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid var(--color-border) !important;
+}
+
 .loading-pulse {
   animation: pulse 1.5s ease-in-out infinite;
 }

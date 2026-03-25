@@ -10,33 +10,9 @@ const apiClient = axios.create({
   },
 })
 
-let pendingRequests = []
-
-const cancelPendingRequests = () => {
-  pendingRequests.forEach(cancel => cancel())
-  pendingRequests = []
-}
-
-apiClient.interceptors.request.use(
-  (config) => {
-    cancelPendingRequests()
-    const controller = new AbortController()
-    config.signal = controller.signal
-    pendingRequests.push(() => controller.abort())
-    return config
-  },
-  (error) => Promise.reject(error)
-)
-
 apiClient.interceptors.response.use(
-  (response) => {
-    pendingRequests = pendingRequests.filter(() => false)
-    return response
-  },
+  (response) => response,
   (error) => {
-    if (axios.isCancel(error)) {
-      return Promise.reject(new Error('请求已取消'))
-    }
     console.error('API Error:', error)
     return Promise.reject(error)
   }
@@ -122,6 +98,41 @@ export const exportBatchExcel = async (resumeIds) => {
     params: { resume_ids: resumeIds.join(',') },
     responseType: 'blob',
   })
+  return response.data
+}
+
+export const getCleanOptions = async () => {
+  const response = await apiClient.get('/config/options')
+  return response.data
+}
+
+export const updateCleanOptions = async (options) => {
+  const response = await apiClient.put('/config/options', options)
+  return response.data
+}
+
+export const getStatistics = async () => {
+  const response = await apiClient.get('/config/statistics')
+  return response.data
+}
+
+export const getExportTemplates = async () => {
+  const response = await apiClient.get('/config/templates')
+  return response.data
+}
+
+export const createExportTemplate = async (template) => {
+  const response = await apiClient.post('/config/templates', template)
+  return response.data
+}
+
+export const deleteExportTemplate = async (templateId) => {
+  const response = await apiClient.delete(`/config/templates/${templateId}`)
+  return response.data
+}
+
+export const getHistory = async (skip = 0, limit = 20) => {
+  const response = await apiClient.get('/config/history', { params: { skip, limit } })
   return response.data
 }
 

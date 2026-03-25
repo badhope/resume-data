@@ -7,7 +7,7 @@ import logging
 import traceback
 
 from app.core.config import settings
-from app.api import upload, resume, export
+from app.api import upload, resume, export, config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -59,6 +59,7 @@ app.mount("/uploads", StaticFiles(directory=str(upload_dir)), name="uploads")
 app.include_router(upload.router, prefix="/api", tags=["上传"])
 app.include_router(resume.router, prefix="/api", tags=["简历"])
 app.include_router(export.router, prefix="/api", tags=["导出"])
+app.include_router(config.router, prefix="/api/config", tags=["配置"])
 
 
 @app.get("/")

@@ -3,8 +3,8 @@ version: '3.8'
 services:
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: resume-cleaner-backend
     ports:
       - "8000:8000"
@@ -20,9 +20,9 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm run dev"
     ports:
-      - "3000:3000"
+      - "3005:3005"
+    command: sh -c "npm install && npm run dev -- --port 3005"
     environment:
       - NODE_ENV=development
     restart: unless-stopped

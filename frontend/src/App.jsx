@@ -7,6 +7,8 @@ import LoadingSpinner from './components/LoadingSpinner'
 const UploadPage = lazy(() => import('./pages/UploadPage'))
 const ResumeListPage = lazy(() => import('./pages/ResumeListPage'))
 const ResumeDetailPage = lazy(() => import('./pages/ResumeDetailPage'))
+const StatisticsPage = lazy(() => import('./pages/StatisticsPage'))
+const SettingsPage = lazy(() => import('./pages/SettingsPage'))
 
 const { Content, Header } = Layout
 
@@ -55,6 +57,8 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/resumes" element={<ResumeListPage />} />
             <Route path="/resumes/:id" element={<ResumeDetailPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
           </Suspense>
         </Content>
