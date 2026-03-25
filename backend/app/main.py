@@ -7,7 +7,8 @@ import logging
 import traceback
 
 from app.core.config import settings
-from app.api import upload, resume, export, config
+from app.api import upload, resume, export, config, auth, wechat, logs, shipping
+from app.core.database import init_db
 
 logging.basicConfig(
     level=logging.INFO,
@@ -60,6 +61,16 @@ app.include_router(upload.router, prefix="/api", tags=["上传"])
 app.include_router(resume.router, prefix="/api", tags=["简历"])
 app.include_router(export.router, prefix="/api", tags=["导出"])
 app.include_router(config.router, prefix="/api/config", tags=["配置"])
+app.include_router(auth.router, prefix="/api/auth", tags=["认证"])
+app.include_router(wechat.router, prefix="/api/wechat", tags=["微信"])
+app.include_router(logs.router, prefix="/api", tags=["日志"])
+app.include_router(shipping.router, prefix="/api", tags=["邮寄"])
+
+
+@app.on_event("startup")
+async def startup_event():
+    init_db()
+    logger.info("Database initialized")
 
 
 @app.get("/")
