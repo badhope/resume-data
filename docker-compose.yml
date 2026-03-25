@@ -9,20 +9,33 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend/uploads:/app/uploads
+      - ./data/uploads:/app/uploads
+      - ./data/db:/app/data
     environment:
-      - DEBUG=true
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-in-production}
+      - DATABASE_URL=sqlite:///./data/resume_cleaner.db
+      - WECHAT_APPID=${WECHAT_APPID:-}
+      - WECHAT_SECRET=${WECHAT_SECRET:-}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   frontend:
-    image: node:18-alpine
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: resume-cleaner-frontend
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
     ports:
-      - "3005:3005"
-    command: sh -c "npm install && npm run dev -- --port 3005"
-    environment:
-      - NODE_ENV=development
+      - "80:80"
+    depends_on:
+      - backend
     restart: unless-stopped
+
+volumes:
+  uploads:
+  db:
