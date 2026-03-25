@@ -307,10 +307,6 @@ class NLPProcessor:
                     experiences.append(current_work.copy())
                     current_work = {}
 
-        for exp in experiences:
-            if exp.get('company') and len(exp) >= 2:
-                experiences.append(exp)
-
         seen = set()
         unique_experiences = []
         for exp in experiences:

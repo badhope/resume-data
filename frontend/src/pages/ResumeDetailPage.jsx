@@ -370,12 +370,4 @@ function ResumeDetailPage() {
   )
 }
 
-function Empty({ description }) {
-  return (
-    <div style={{ textAlign: 'center', color: '#999', padding: '20px 0' }}>
-      {description}
-    </div>
-  )
-}
-
 export default ResumeDetailPage

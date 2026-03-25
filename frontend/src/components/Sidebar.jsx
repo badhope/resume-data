@@ -1,6 +1,6 @@
 import { Layout, Menu } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { UploadOutlined, FileTextOutlined, HomeOutlined } from '@ant-design/icons'
+import { UploadOutlined, FileTextOutlined } from '@ant-design/icons'
 
 const { Sider } = Layout
 
