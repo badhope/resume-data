@@ -40,15 +40,15 @@ jobs:
           echo "✅ skills/refute/SKILL_CN.md (Chinese) found"
 
           # ======================================
-          # CHECK 2: TRAE IDE COMPATIBILITY
+          # PLATFORM NEUTRALITY VERIFICATION
           # ======================================
           echo ""
-          echo "Checking Trae IDE compatibility..."
+          echo "Verifying platform neutrality..."
           
-          if [ -f ".trae/skills/refute/SKILL.md" ]; then
-            echo "✅ .trae/skills/refute/SKILL.md - Trae native support"
+          if [ -d ".trae" ]; then
+            echo "⚠️  WARNING: Found .trae directory - project should be platform neutral"
           else
-            echo "⚠️  Trae native path not found (optional, recommended)"
+            echo "✅ 100% Platform Neutral - No vendor lock-in"
           fi
 
           # ======================================

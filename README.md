@@ -139,17 +139,17 @@ Perfect Refutation =
 
 ### Installation
 
-#### Option 1: Trae IDE (Native Support)
-One-click activation:
-```
-/refute
-```
+### Universal Installation - Works on EVERY LLM
 
-#### Option 2: Any LLM - Universal Method
+No platform lock-in. No special APIs. Works on everything.
 
-Copy the contents of `skills/refute/SKILL.md` into any conversation. That's it.
+**Copy the contents of `skills/refute/SKILL.md` into any LLM conversation.**
 
-**Works EVERYWHERE** - no platform lock-in, no special APIs needed.
+That's literally it.
+
+✅ ChatGPT ✅ Claude ✅ Gemini ✅ Trae ✅ OpenRouter ✅ Anything
+
+**SKILL = Pure Markdown. Zero dependencies. Zero bullshit.**
 
 ---
 
@@ -360,18 +360,21 @@ python skills/refute/src/validator.py
 
 ```
 REFUTE-SKILL/
-├── skills/refute/            # ✅ UNIVERSAL STANDARD PATH
+├── skills/refute/            # ✅ INDUSTRY STANDARD PATH
 │   ├── SKILL.md              # Official English definition
 │   ├── SKILL_CN.md           # Chinese language version
-│   ├── config/settings.json  # Parameter configuration
-│   ├── docs/                 # Architecture + Requirements Spec
-│   ├── examples/             # 21 scenario demonstrations
+│   ├── config/settings.json  # Tunable parameters
+│   ├── docs/                 # Architecture + Formal Spec
+│   ├── examples/             # Battle-tested scenarios
 │   ├── src/validator.py      # Quality automation
-│   └── tests/                # Complete QA test suite
-├── .trae/skills/refute/      # 📌 Trae IDE compatibility symlink
+│   └── tests/                # Complete test suite
+│
 ├── README.md                 # English default
 ├── README_CN.md              # Chinese
 └── Standard open source files
+
+# FOR TRAE USERS: Copy skills/refute/ into .trae/skills/refute/
+# That's the ONLY platform-specific step needed
 ```
 
 ---
