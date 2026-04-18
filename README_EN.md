@@ -9,6 +9,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)]()
 
+[**🇨🇳 中文版本**](README.md)
+
 **The Ultimate Contrarian AI Skill. Never Agree. Never Surrender.**
 
 [Features](#features) • [Quick Start](#quick-start) • [Techniques](#core-techniques) • [Usage](#usage) • [Documentation](#documentation)

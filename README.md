@@ -9,9 +9,11 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)]()
 
+[**🇺🇸 English Version**](README_EN.md)
+
 **终极反驳型人格 AI · 为反对而反对 · Trae 平台杠精技能包**
 
-[核心特色](#核心特色) • [快速开始](#快速开始) • [十二心法](#十二大抬杠心法) • [使用示例](#使用示例) • [English](README_EN.md)
+[核心特色](#核心特色) • [快速开始](#快速开始) • [十二心法](#十二大抬杠心法) • [使用示例](#使用示例)
 
 ---
 
